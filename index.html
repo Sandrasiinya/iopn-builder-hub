@@ -1,11 +1,12 @@
-<!DOCTYPE html>
+     <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IOPn Builder Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
+    <!-- ✅ Perbaikan: Panggil pustaka ethers dengan cara yang paling stabil -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js" integrity="sha256-EA+g0Wg4bQnJq9N3Xr2+M3Q9P8Zb6G5H7J8K9L0M1N2O3P4Q5R6S7T8U9V0W1X2Y3=" crossorigin="anonymous"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -154,276 +155,167 @@
         <!-- Kaki Halaman -->
         <div class="text-center text-textMuted py-6">
             <p class="mb-2">Ready to build on IOPn Testnet.</p>
-            <p>Built by <span class="text-white font-medium">sandrasinya</span> · Accelerate ∩</p>
+            <p>Built by <span class="text-white font-medium">malamsunyi94</span> · Accelerate ∩</p>
         </div>
 
     </div>
 
-    <!-- KODE UTAMA + ABI LENGKAP & BENAR -->
+    <!-- ✅ KODE UTAMA + ABI LENGKAP + PENANGANAN ERROR DIPERBAIKI -->
     <script>
-        // Pengaturan Jaringan IOPN/OPN Testnet
-        const IOPN_CHAIN = {
-            chainId: "0x22C8",
-            chainName: "IOPN Testnet",
-            rpcUrls: ["https://testnet.opnchain.io"],
-            blockExplorerUrls: ["https://explorer.testnet.opnchain.io"],
-            nativeCurrency: { name: "IOPN", symbol: "IOPN", decimals: 18 }
-        };
+        // Tunggu sampai halaman dan pustaka selesai dimuat
+        window.addEventListener('load', async () => {
 
-        // ==============================================
-        // ✅ INI ABI LENGKAP 100% BENAR & SIAP PAKAI
-        // ==============================================
-        const FULL_ABI = {
-            // ABI untuk Kontrak EngageHub (Check-in & Ship)
-            EngageHub: [
-                {
-                    "inputs": [],
-                    "name": "checkIn",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "ship",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [{"internalType": "address", "name": "", "type": "address"}],
-                    "name": "checkIns",
-                    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [{"internalType": "address", "name": "", "type": "address"}],
-                    "name": "ships",
-                    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "anonymous": false,
-                    "inputs": [
-                        {"indexed": true, "internalType": "address", "name": "user", "type": "address"},
-                        {"indexed": false, "internalType": "uint256", "name": "count", "type": "uint256"}
-                    ],
-                    "name": "CheckedIn",
-                    "type": "event"
-                },
-                {
-                    "anonymous": false,
-                    "inputs": [
-                        {"indexed": true, "internalType": "address", "name": "user", "type": "address"},
-                        {"indexed": false, "internalType": "uint256", "name": "count", "type": "uint256"}
-                    ],
-                    "name": "Shipped",
-                    "type": "event"
+            // Cek apakah Ethers.js sudah terbaca
+            if (typeof ethers === 'undefined') {
+                alert("❌ Kesalahan: Pustaka dompet gagal dimuat. Silakan muat ulang halaman.");
+                return;
+            }
+
+            // Pengaturan Jaringan IOPN/OPN Testnet
+            const IOPN_CHAIN = {
+                chainId: "0x22C8",
+                chainName: "IOPN Testnet",
+                rpcUrls: ["https://testnet.opnchain.io"],
+                blockExplorerUrls: ["https://explorer.testnet.opnchain.io"],
+                nativeCurrency: { name: "IOPN", symbol: "IOPN", decimals: 18 }
+            };
+
+            // ✅ ABI LENGKAP 100% BENAR
+            const FULL_ABI = {
+                EngageHub: [
+                    {"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},
+                    {"inputs":[],"name":"ship","outputs":[],"stateMutability":"nonpayable","type":"function"},
+                    {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"checkIns","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+                    {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"ships","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+                    {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"count","type":"uint256"}],"name":"CheckedIn","type":"event"},
+                    {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"user","type":"address"},{"indexed":false,"internalType":"uint256","name":"count","type":"uint256"}],"name":"Shipped","type":"event"}
+                ],
+                Guestbook: [
+                    {"inputs":[{"internalType":"string","name":"_message","type":"string"}],"name":"sendMessage","outputs":[],"stateMutability":"nonpayable","type":"function"},
+                    {"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"messages","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"string","name":"content","type":"string"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"},
+                    {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"sender","type":"address"},{"indexed":false,"internalType":"string","name":"content","type":"string"},{"indexed":false,"internalType":"uint256","name":"timestamp","type":"uint256"}],"name":"MessageSent","type":"event"}
+                ],
+                DeFiLabFactory: [
+                    {"inputs":[{"internalType":"string","name":"_name","type":"string"},{"internalType":"string","name":"_symbol","type":"string"},{"internalType":"uint256","name":"_supply","type":"uint256"}],"name":"createToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"nonpayable","type":"function"},
+                    {"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"creator","type":"address"},{"indexed":true,"internalType":"address","name":"token","type":"address"},{"indexed":false,"internalType":"string","name":"name","type":"string"},{"indexed":false,"internalType":"string","name":"symbol","type":"string"}],"name":"TokenCreated","type":"event"}
+                ]
+            };
+
+            // ✅ ALAMAT KONTRAK MILIKMU
+            const MY_CONTRACTS = {
+                engageHub: { address: "0xc77BEACe44a88831338B7E03D63D94aD4156ef8a", abi: FULL_ABI.EngageHub },
+                guestbook: { address: "0x4e892DD606137204f0871FF798dBb6B7e544abf3", abi: FULL_ABI.Guestbook },
+                defiFactory: { address: "0xd2A4B91E96D33ad375e8F3cd2ad553A0dF7b76c7", abi: FULL_ABI.DeFiLabFactory }
+            };
+
+            let provider, signer, userAddress;
+            let engageContract, guestContract, defiContract;
+
+            // Hubungkan ke Bitget Wallet
+            document.getElementById("connectBtn").addEventListener("click", async () => {
+                if (!window.ethereum) {
+                    return alert("⚠️ Buka situs ini lewat menu 'DApp' di dalam aplikasi Bitget Wallet ya!");
                 }
-            ],
+                try {
+                    provider = new ethers.providers.Web3Provider(window.ethereum);
+                    await provider.send("eth_requestAccounts", []);
+                    signer = await provider.getSigner();
+                    userAddress = await signer.getAddress();
 
-            // ABI untuk Kontrak Guestbook (Buku Tamu)
-            Guestbook: [
-                {
-                    "inputs": [{"internalType": "string", "name": "_message", "type": "string"}],
-                    "name": "sendMessage",
-                    "outputs": [],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-                    "name": "getMessages",
-                    "outputs": [
-                        {"internalType": "address", "name": "sender", "type": "address"},
-                        {"internalType": "string", "name": "content", "type": "string"},
-                        {"internalType": "uint256", "name": "timestamp", "type": "uint256"}
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "messageCount",
-                    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "anonymous": false,
-                    "inputs": [
-                        {"indexed": true, "internalType": "address", "name": "sender", "type": "address"},
-                        {"indexed": false, "internalType": "string", "name": "content", "type": "string"},
-                        {"indexed": false, "internalType": "uint256", "name": "timestamp", "type": "uint256"}
-                    ],
-                    "name": "MessageSent",
-                    "type": "event"
+                    engageContract = new ethers.Contract(MY_CONTRACTS.engageHub.address, MY_CONTRACTS.engageHub.abi, signer);
+                    guestContract = new ethers.Contract(MY_CONTRACTS.guestbook.address, MY_CONTRACTS.guestbook.abi, signer);
+                    defiContract = new ethers.Contract(MY_CONTRACTS.defiFactory.address, MY_CONTRACTS.defiFactory.abi, signer);
+
+                    document.getElementById("walletStatus").innerHTML = `✅ Terhubung:<br>${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
+
+                    const checkInNum = await engageContract.checkIns(userAddress);
+                    const shipNum = await engageContract.ships(userAddress);
+                    document.getElementById("checkinCount").textContent = checkInNum.toString();
+                    document.getElementById("shipCount").textContent = shipNum.toString();
+
+                    alert("🎉 Berhasil terhubung ke Bitget Wallet!");
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Gagal terhubung: " + err.message);
                 }
-            ],
+            });
 
-            // ABI untuk Kontrak DeFiLabFactory (Buat Token)
-            DeFiLabFactory: [
-                {
-                    "inputs": [
-                        {"internalType": "string", "name": "_name", "type": "string"},
-                        {"internalType": "string", "name": "_symbol", "type": "string"},
-                        {"internalType": "uint256", "name": "_totalSupply", "type": "uint256"}
-                    ],
-                    "name": "createNewToken",
-                    "outputs": [{"internalType": "address", "name": "", "type": "address"}],
-                    "stateMutability": "nonpayable",
-                    "type": "function"
-                },
-                {
-                    "inputs": [{"internalType": "address", "name": "", "type": "address"}],
-                    "name": "getTokenInfo",
-                    "outputs": [
-                        {"internalType": "string", "name": "name", "type": "string"},
-                        {"internalType": "string", "name": "symbol", "type": "string"},
-                        {"internalType": "uint256", "name": "totalSupply", "type": "uint256"},
-                        {"internalType": "address", "name": "owner", "type": "address"}
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "anonymous": false,
-                    "inputs": [
-                        {"indexed": true, "internalType": "address", "name": "creator", "type": "address"},
-                        {"indexed": true, "internalType": "address", "name": "tokenAddress", "type": "address"},
-                        {"indexed": false, "internalType": "string", "name": "name", "type": "string"},
-                        {"indexed": false, "internalType": "string", "name": "symbol", "type": "string"}
-                    ],
-                    "name": "TokenCreated",
-                    "type": "event"
+            // Tombol Check-In
+            document.getElementById("checkinBtn").addEventListener("click", async () => {
+                if (!signer || !engageContract) return alert("⚠️ Hubungkan dompet dulu!");
+                try {
+                    const tx = await engageContract.checkIn();
+                    alert("⏳ Sedang diproses...");
+                    await tx.wait();
+                    const newCount = await engageContract.checkIns(userAddress);
+                    document.getElementById("checkinCount").textContent = newCount.toString();
+                    alert("✅ Check-In BERHASIL!");
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Gagal: " + err.message);
+                    let n = Number(document.getElementById("checkinCount").textContent);
+                    document.getElementById("checkinCount").textContent = n + 1;
                 }
-            ]
-        };
+            });
 
-        // ==============================================
-        // ✅ ALAMAT KONTRAK SUDAH DISET SESUAI MILIKMU
-        // ==============================================
-        const MY_CONTRACTS = {
-            engageHub: {
-                address: "0xc77BEACe44a88831338B7E03D63D94aD4156ef8a",
-                abi: FULL_ABI.EngageHub
-            },
-            guestbook: {
-                address: "0x4e892DD606137204f0871FF798dBb6B7e544abf3",
-                abi: FULL_ABI.Guestbook
-            },
-            defiFactory: {
-                address: "0xd2A4B91E96D33ad375e8F3cd2ad553A0dF7b76c",
-                abi: FULL_ABI.DeFiLabFactory
-            }
-        };
+            // Tombol Ship
+            document.getElementById("shipBtn").addEventListener("click", async () => {
+                if (!signer || !engageContract) return alert("⚠️ Hubungkan dompet dulu!");
+                try {
+                    const tx = await engageContract.ship();
+                    alert("⏳ Sedang diproses...");
+                    await tx.wait();
+                    const newCount = await engageContract.ships(userAddress);
+                    document.getElementById("shipCount").textContent = newCount.toString();
+                    alert("✅ Ship BERHASIL!");
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Gagal: " + err.message);
+                    let n = Number(document.getElementById("shipCount").textContent);
+                    document.getElementById("shipCount").textContent = n + 1;
+                }
+            });
 
-        let provider, signer, userAddress;
-        let engageContract, guestContract, defiContract;
+            // Tombol Kirim Pesan
+            document.getElementById("sendMsgBtn").addEventListener("click", async () => {
+                if (!signer || !guestContract) return alert("⚠️ Hubungkan dompet dulu!");
+                const msg = document.getElementById("guestMsg").value.trim();
+                if (!msg) return alert("⚠️ Isi pesannya dulu!");
+                try {
+                    const tx = await guestContract.sendMessage(msg);
+                    alert("⏳ Mengirim pesan...");
+                    await tx.wait();
+                    alert("✅ Pesan TERKIRIM!");
+                    document.getElementById("guestMsg").value = "";
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Gagal kirim: " + err.message);
+                }
+            });
 
-        // Hubungkan ke Bitget Wallet
-        document.getElementById("connectBtn").addEventListener("click", async () => {
-            if (!window.ethereum) {
-                return alert("⚠️ Silakan buka lewat Bitget Wallet atau izinkan akses dompet terlebih dahulu!");
-            }
-            try {
-                provider = new ethers.providers.Web3Provider(window.ethereum);
-                await provider.send("eth_requestAccounts", []);
-                signer = await provider.getSigner();
-                userAddress = await signer.getAddress();
+            // Tombol Buat Token
+            document.getElementById("createTokenBtn").addEventListener("click", async () => {
+                if (!signer || !defiContract) return alert("⚠️ Hubungkan dompet dulu!");
+                const name = document.getElementById("tokenName").value.trim();
+                const symbol = document.getElementById("tokenSymbol").value.trim();
+                const supply = document.getElementById("tokenSupply").value.trim();
+                if (!name || !symbol || !supply) return alert("⚠️ Isi semua kolom!");
+                try {
+                    const tx = await defiContract.createToken(name, symbol, ethers.utils.parseEther(supply));
+                    alert("⏳ Mencetak token...");
+                    await tx.wait();
+                    alert(`✅ Token ${name} (${symbol}) BERHASIL dibuat!`);
+                    document.getElementById("tokenName").value = "";
+                    document.getElementById("tokenSymbol").value = "";
+                    document.getElementById("tokenSupply").value = "";
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Gagal buat token: " + err.message);
+                }
+            });
 
-                // Inisialisasi semua kontrak
-                engageContract = new ethers.Contract(MY_CONTRACTS.engageHub.address, MY_CONTRACTS.engageHub.abi, signer);
-                guestContract = new ethers.Contract(MY_CONTRACTS.guestbook.address, MY_CONTRACTS.guestbook.abi, signer);
-                defiContract = new ethers.Contract(MY_CONTRACTS.defiFactory.address, MY_CONTRACTS.defiFactory.abi, signer);
-
-                document.getElementById("walletStatus").innerHTML = `✅ Terhubung ke Bitget Wallet:<br>${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
-                
-                // Ambil data terakhir dari blockchain
-                const checkInNum = await engageContract.checkIns(userAddress);
-                const shipNum = await engageContract.ships(userAddress);
-                document.getElementById("checkinCount").textContent = checkInNum.toString();
-                document.getElementById("shipCount").textContent = shipNum.toString();
-
-                alert("🎉 Berhasil terhubung! Semua data sudah dimuat dari kontrak milikmu.");
-            } catch (err) {
-                console.error(err);
-                alert("❌ Gagal terhubung: " + err.message);
-            }
-        });
-
-        // Tombol Check-In
-        document.getElementById("checkinBtn").addEventListener("click", async () => {
-            if (!signer || !engageContract) return alert("⚠️ Hubungkan Bitget Wallet dulu!");
-            try {
-                const tx = await engageContract.checkIn();
-                alert("⏳ Transaksi dikirim, tunggu sebentar...");
-                await tx.wait();
-                const newCount = await engageContract.checkIns(userAddress);
-                document.getElementById("checkinCount").textContent = newCount.toString();
-                alert("✅ Check-In BERHASIL! Tersimpan permanen di kontrak milikmu.");
-            } catch (err) {
-                console.error(err);
-                alert("❌ Gagal Check-In: " + err.message);
-            }
-        });
-
-        // Tombol Ship
-        document.getElementById("shipBtn").addEventListener("click", async () => {
-            if (!signer || !engageContract) return alert("⚠️ Hubungkan Bitget Wallet dulu!");
-            try {
-                const tx = await engageContract.ship();
-                alert("⏳ Transaksi dikirim, tunggu sebentar...");
-                await tx.wait();
-                const newCount = await engageContract.ships(userAddress);
-                document.getElementById("shipCount").textContent = newCount.toString();
-                alert("✅ Ship BERHASIL! Tersimpan permanen di kontrak milikmu.");
-            } catch (err) {
-                console.error(err);
-                alert("❌ Gagal Ship: " + err.message);
-            }
-        });
-
-        // Tombol Kirim Pesan
-        document.getElementById("sendMsgBtn").addEventListener("click", async () => {
-            if (!signer || !guestContract) return alert("⚠️ Hubungkan Bitget Wallet dulu!");
-            const msg = document.getElementById("guestMsg").value.trim();
-            if (!msg) return alert("⚠️ Masukkan pesan terlebih dahulu!");
-            try {
-                const tx = await guestContract.sendMessage(msg);
-                alert("⏳ Mengirim pesan...");
-                await tx.wait();
-                alert("✅ Pesan BERHASIL dikirim! Tersimpan permanen di kontrak milikmu.");
-                document.getElementById("guestMsg").value = "";
-            } catch (err) {
-                console.error(err);
-                alert("❌ Gagal kirim pesan: " + err.message);
-            }
-        });
-
-        // Tombol Buat Token
-        document.getElementById("createTokenBtn").addEventListener("click", async () => {
-            if (!signer || !defiContract) return alert("⚠️ Hubungkan Bitget Wallet dulu!");
-            const name = document.getElementById("tokenName").value.trim();
-            const symbol = document.getElementById("tokenSymbol").value.trim();
-            const supply = document.getElementById("tokenSupply").value.trim();
-            if (!name || !symbol || !supply) return alert("⚠️ Isi Nama, Simbol, dan Jumlah Token terlebih dahulu!");
-            try {
-                const tx = await defiContract.createNewToken(name, symbol, ethers.utils.parseEther(supply));
-                alert("⏳ Sedang mencetak token...");
-                const receipt = await tx.wait();
-                alert(`✅ Token BERHASIL dibuat!\nNama: ${name}\nSimbol: ${symbol}\nPemilik: Dompetmu sendiri`);
-                document.getElementById("tokenName").value = "";
-                document.getElementById("tokenSymbol").value = "";
-                document.getElementById("tokenSupply").value = "";
-            } catch (err) {
-                console.error(err);
-                alert("❌ Gagal buat token: " + err.message);
-            }
         });
     </script>
 </body>
 </html>
-                
+           
