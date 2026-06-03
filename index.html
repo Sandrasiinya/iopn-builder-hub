@@ -96,7 +96,7 @@
                 </div>
             </div>
         </div>
-        <div class="panel p-6">
+                <div class="panel p-6">
             <h2 class="text-2xl font-bold text-white mb-3">Guestbook</h2>
             <p class="text-textMuted mb-5">Leave a simple on-chain message for the OPN builder community.</p>
             <input type="text" id="guestMsg" placeholder="Write your message..." class="w-full bg-btnDark rounded-2xl py-3 px-4 mb-4 outline-none border-none text-base">
@@ -107,7 +107,7 @@
                 Guestbook Contract
             </button>
         </div>
-        <div class="panel p-6">
+                <div class="panel p-6">
             <h2 class="text-2xl font-bold text-white mb-3">DeFi Lab</h2>
             <p class="text-textMuted mb-5">Create experimental tokens directly on OPN Chain.</p>
             <div class="space-y-3 mb-6">
@@ -141,7 +141,7 @@
         </div>
         <div class="text-center text-textMuted py-6">
             <p class="mb-2">Ready to build on IOPn Testnet.</p>
-            <p>Built by <span class="text-white font-medium">malamsunyi94</span> · Accelerate ∩</p>
+            <p>Built by <span class="text-white font-medium">sandrasinya</span> · Accelerate ∩</p>
         </div>
     </div>
     <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
@@ -180,7 +180,7 @@
             };
             let provider, signer, userAddress;
             let engageContract, guestContract, defiContract;
-            document.getElementById("connectBtn").addEventListener("click", async () => {
+                   document.getElementById("connectBtn").addEventListener("click", async () => {
                 if (!window.ethereum) {
                     alert("Please open this site inside Bitget Wallet DApp browser");
                     return;
@@ -203,7 +203,7 @@
                     alert("Failed to connect: " + err.message);
                 }
             });
-            document.getElementById("checkinBtn").addEventListener("click", async () => {
+                    document.getElementById("checkinBtn").addEventListener("click", async () => {
                 if (!signer || !engageContract) { alert("Please connect your wallet first"); return; }
                 try {
                     const tx = await engageContract.checkIn();
@@ -216,6 +216,7 @@
                     alert("Failed: " + err.message);
                 }
             });
+
             document.getElementById("shipBtn").addEventListener("click", async () => {
                 if (!signer || !engageContract) { alert("Please connect your wallet first"); return; }
                 try {
@@ -229,7 +230,7 @@
                     alert("Failed: " + err.message);
                 }
             });
-            document.getElementById("sendMsgBtn").addEventListener("click", async () => {
+             document.getElementById("sendMsgBtn").addEventListener("click", async () => {
                 if (!signer || !guestContract) { alert("Please connect your wallet first"); return; }
                 const msg = document.getElementById("guestMsg").value.trim();
                 if (!msg) { alert("Please enter your message"); return; }
@@ -243,6 +244,7 @@
                     alert("Failed to send: " + err.message);
                 }
             });
+
             document.getElementById("createTokenBtn").addEventListener("click", async () => {
                 if (!signer || !defiContract) { alert("Please connect your wallet first"); return; }
                 const name = document.getElementById("tokenName").value.trim();
@@ -265,4 +267,6 @@
     </script>
 </body>
 </html>
-            
+
+
+
