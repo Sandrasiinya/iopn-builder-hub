@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,95 +11,117 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { dark: '#05050a', darker: '#020205', accent: '#6366f1' },
-                    fontFamily: { mono: ['JetBrains Mono', 'monospace'] }
+                    colors: {
+                        dark: '#000000',
+                        darker: '#000000',
+                        panel: '#000000',
+                        border: '#222222',
+                        textDim: '#999999',
+                        textMain: '#cccccc',
+                        accent: '#444444'
+                    },
+                    fontFamily: {
+                        mono: ['"JetBrains Mono"', 'Consolas', 'Monaco', 'monospace']
+                    }
                 }
             }
         }
     </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-balance { text-wrap: balance; }
+            .leading-relaxed-2 { line-height: 1.8; }
+        }
+        html { background: #000; }
+        body { background: #000; color: #ccc; font-family: "JetBrains Mono", Consolas, Monaco, monospace; }
+    </style>
 </head>
-<body class="bg-dark text-gray-100 font-mono min-h-screen">
-    <div class="container max-w-4xl mx-auto px-4 py-12">
-        <!-- Header -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">⋂ IOPN Builder Hub</h1>
-            <p class="text-gray-400 text-lg max-w-2xl mx-auto">
-                A lightweight on-chain builder activity hub for daily participation, community interaction, and DeFi experiments on OPN Chain.
-            </p>
-            <button id="connectBtn" class="mt-6 px-6 py-3 bg-accent hover:bg-accent/90 rounded-lg font-medium transition">
-                Connect Wallet
-            </button>
-            <p id="walletStatus" class="mt-2 text-gray-500 text-sm">Wallet not connected</p>
-        </div>
+<body class="bg-black text-gray-300 font-mono min-h-screen p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+        <!-- Header Utama -->
+        <header class="mb-12">
+            <div class="text-center md:text-left">
+                <h1 class="text-2xl md:text-3xl font-normal text-white mb-6 tracking-wide">⋂ IOPN Builder Hub</h1>
+                <p class="text-base text-gray-400 max-w-2xl mb-8 leading-relaxed-2">
+                    A lightweight on-chain builder activity hub for daily participation,<br>
+                    community interaction, and DeFi experiments on OPN Chain.
+                </p>
+                <button id="connectBtn" class="bg-transparent border border-gray-600 px-4 py-1.5 text-gray-200 hover:border-gray-400 transition-colors rounded-none">
+                    Connect Wallet
+                </button>
+                <p id="walletStatus" class="text-sm text-gray-500 mt-2">Wallet not connected</p>
+            </div>
+        </header>
 
-        <!-- Statistik Utama -->
-        <div class="grid md:grid-cols-3 gap-6 mb-12">
-            <div class="bg-darker border border-gray-800 rounded-xl p-6 text-center">
-                <div class="text-4xl font-bold text-white mb-2" id="checkinCount">0</div>
-                <div class="text-gray-400">Check-Ins</div>
+        <!-- Daily Activity -->
+        <section class="mb-10">
+            <h2 class="text-lg font-normal text-gray-200 mb-3">Daily Activity</h2>
+            <p class="text-gray-400 mb-5">Check in once per day and record your builder progress.</p>
+            <div class="flex flex-wrap gap-3 mb-8">
+                <button id="checkinBtn" class="bg-transparent border border-gray-600 px-4 py-1.5 text-gray-200 hover:border-gray-400 transition-colors rounded-none">
+                    Daily Check-In
+                </button>
+                <button id="shipBtn" class="bg-transparent border border-gray-600 px-4 py-1.5 text-gray-200 hover:border-gray-400 transition-colors rounded-none">
+                    Ship
+                </button>
+                <button class="bg-transparent border border-gray-600 px-4 py-1.5 text-gray-200 hover:border-gray-400 transition-colors rounded-none">
+                    View My Stats
+                </button>
             </div>
-            <div class="bg-darker border border-gray-800 rounded-xl p-6 text-center">
-                <div class="text-4xl font-bold text-white mb-2" id="shipCount">0</div>
-                <div class="text-gray-400">Ships</div>
-            </div>
-            <div class="bg-darker border border-gray-800 rounded-xl p-6 text-center">
-                <div class="text-4xl font-bold text-white mb-2">0</div>
-                <div class="text-gray-400">Engage Contract</div>
-            </div>
-        </div>
 
-        <!-- Aktivitas Harian -->
-        <div class="bg-darker border border-gray-800 rounded-xl p-8 mb-12">
-            <h2 class="text-2xl font-bold mb-6">Daily Activity</h2>
-            <p class="text-gray-300 mb-6">Check in once per day and record your builder progress.</p>
-            <div class="flex flex-wrap gap-4">
-                <button id="checkinBtn" class="px-5 py-2 bg-green-700 hover:bg-green-600 rounded-lg transition">Daily Check-In</button>
-                <button id="shipBtn" class="px-5 py-2 bg-blue-700 hover:bg-blue-600 rounded-lg transition">Ship</button>
-                <button class="px-5 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg transition">View My Stats</button>
+            <!-- Angka Statistik -->
+            <div class="flex flex-wrap gap-x-8 gap-y-4 text-center md:text-left">
+                <div>
+                    <div class="text-3xl text-white font-light" id="checkinCount">0</div>
+                    <div class="text-sm text-gray-500 mt-1">Check-Ins</div>
+                </div>
+                <div>
+                    <div class="text-3xl text-white font-light" id="shipCount">0</div>
+                    <div class="text-sm text-gray-500 mt-1">Ships</div>
+                </div>
+                <div>
+                    <div class="text-3xl text-white font-light">0</div>
+                    <div class="text-sm text-gray-500 mt-1">Engage Contract</div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Buku Tamu -->
-        <div class="bg-darker border border-gray-800 rounded-xl p-8">
-            <h2 class="text-2xl font-bold mb-4">Guestbook</h2>
-            <p class="text-gray-300 mb-4">Leave a simple on-chain message for the OPN builder community.</p>
-            <textarea id="guestMsg" class="w-full bg-dark border border-gray-700 rounded-lg p-3 h-24 mb-4" placeholder="Write your message..."></textarea>
-            <button id="sendMsgBtn" class="px-5 py-2 bg-purple-700 hover:bg-purple-600 rounded-lg transition">Send On-Chain</button>
-        </div>
+        <!-- Guestbook -->
+        <section>
+            <h2 class="text-lg font-normal text-gray-200 mb-3">Guestbook</h2>
+            <p class="text-gray-400">Leave a simple on-chain message for the OPN builder community.</p>
+        </section>
     </div>
 
-    <!-- Logika Web3 -->
+    <!-- Web3 Logic -->
     <script>
         let provider, signer, userAddress;
 
-        // Hubungkan dompet
         document.getElementById("connectBtn").addEventListener("click", async () => {
-            if (!window.ethereum) return alert("Instal MetaMask atau dompet Web3 dulu ya!");
+            if (!window.ethereum) return alert("Install MetaMask / Web3 wallet first!");
             try {
                 provider = new ethers.providers.Web3Provider(window.ethereum);
                 await provider.send("eth_requestAccounts", []);
-                signer = provider.getSigner();
+                signer = await provider.getSigner();
                 userAddress = await signer.getAddress();
-                document.getElementById("walletStatus").textContent = `Connected: ${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
+                document.getElementById("walletStatus").textContent = `Wallet connected: ${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
             } catch (err) {
-                alert("Gagal hubungkan dompet: " + err.message);
+                alert("Connection failed: " + err.message);
             }
         });
 
-        // Aksi Check-In
         document.getElementById("checkinBtn").addEventListener("click", () => {
-            if (!signer) return alert("Hubungkan dompet dulu ya!");
-            let count = parseInt(document.getElementById("checkinCount").textContent);
-            document.getElementById("checkinCount").textContent = count + 1;
+            if (!signer) return alert("Connect wallet first!");
+            let val = Number(document.getElementById("checkinCount").textContent);
+            document.getElementById("checkinCount").textContent = val + 1;
         });
 
-        // Aksi Ship
         document.getElementById("shipBtn").addEventListener("click", () => {
-            if (!signer) return alert("Hubungkan dompet dulu ya!");
-            let count = parseInt(document.getElementById("shipCount").textContent);
-            document.getElementById("shipCount").textContent = count + 1;
+            if (!signer) return alert("Connect wallet first!");
+            let val = Number(document.getElementById("shipCount").textContent);
+            document.getElementById("shipCount").textContent = val + 1;
         });
     </script>
 </body>
-                  </html>
-          
+                    </html>
+    
