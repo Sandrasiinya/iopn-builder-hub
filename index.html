@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOPN Builder Hub</title>
+    <title>IOPn Builder Hub</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
     <script>
@@ -12,116 +11,276 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: '#000000',
-                        darker: '#000000',
-                        panel: '#000000',
-                        border: '#222222',
-                        textDim: '#999999',
-                        textMain: '#cccccc',
-                        accent: '#444444'
+                        bgMain: '#000000',
+                        panel: '#121217',
+                        border: '#222228',
+                        textMuted: '#999999',
+                        textBase: '#cccccc',
+                        btnLight: '#e2e2e8',
+                        btnDark: '#222228',
                     },
                     fontFamily: {
-                        mono: ['"JetBrains Mono"', 'Consolas', 'Monaco', 'monospace']
+                        mono: ['"JetBrains Mono"', 'monospace']
                     }
                 }
             }
         }
     </script>
     <style type="text/tailwindcss">
-        @layer utilities {
-            .text-balance { text-wrap: balance; }
-            .leading-relaxed-2 { line-height: 1.8; }
-        }
         html { background: #000; }
-        body { background: #000; color: #ccc; font-family: "JetBrains Mono", Consolas, Monaco, monospace; }
+        body { 
+            background: #000;
+            color: #cccccc; 
+            font-family: "JetBrains Mono", monospace; 
+            line-height: 1.7;
+        }
+        .btn-glow {
+            background: linear-gradient(180deg, #f5f5f9 0%, #cacad2 100%);
+            color: #000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
+        }
+        .btn-dark {
+            background: #1e1e25;
+            color: #cccccc;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
+        }
+        .panel {
+            background: #121217;
+            border: 1px solid #2a2a30;
+            border-radius: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
     </style>
 </head>
-<body class="bg-black text-gray-300 font-mono min-h-screen p-4 md:p-8">
-    <div class="max-w-3xl mx-auto">
-        <!-- Header Utama -->
-        <header class="mb-12">
-            <div class="text-center md:text-left">
-                <h1 class="text-2xl md:text-3xl font-normal text-white mb-6 tracking-wide">⋂ IOPN Builder Hub</h1>
-                <p class="text-base text-gray-400 max-w-2xl mb-8 leading-relaxed-2">
-                    A lightweight on-chain builder activity hub for daily participation,<br>
-                    community interaction, and DeFi experiments on OPN Chain.
-                </p>
-                <button id="connectBtn" class="bg-transparent border border-gray-600 px-4 py-1.5 text-gray-200 hover:border-gray-400 transition-colors rounded-none">
-                    Connect Wallet
-                </button>
-                <p id="walletStatus" class="text-sm text-gray-500 mt-2">Wallet not connected</p>
+<body class="min-h-screen p-5">
+    <div class="max-w-xl mx-auto space-y-6">
+
+        <!-- Bagian Atas -->
+        <div class="panel p-6">
+            <div class="bg-black rounded-full inline-block px-4 py-1 text-sm text-textMuted mb-6">
+                OPN Chain Builder Demo
             </div>
-        </header>
+            <h1 class="text-4xl font-bold text-white mb-3">IOPn Builder Hub <span class="text-2xl align-top">∩</span></h1>
+            <p class="text-textMuted mb-6">
+                A lightweight on-chain builder activity hub for daily participation, community interaction, and DeFi experiments on OPN Chain.
+            </p>
+            <button id="connectBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium mb-3">
+                Connect Wallet
+            </button>
+            <div id="walletStatus" class="w-full bg-btnDark rounded-2xl py-3 px-4 text-textMuted">
+                Wallet not connected
+            </div>
+        </div>
 
         <!-- Daily Activity -->
-        <section class="mb-10">
-            <h2 class="text-lg font-normal text-gray-200 mb-3">Daily Activity</h2>
-            <p class="text-gray-400 mb-5">Check in once per day and record your builder progress.</p>
-            <div class="flex flex-wrap gap-3 mb-8">
-                <button id="checkinBtn" class="bg-transparent border border-gray-600 px-4 py-1.5 text-gray-200 hover:border-gray-400 transition-colors rounded-none">
+        <div class="panel p-6">
+            <h2 class="text-2xl font-bold text-white mb-3">Daily Activity</h2>
+            <p class="text-textMuted mb-5">Check in once per day and record your builder progress.</p>
+            <div class="space-y-3 mb-6">
+                <button id="checkinBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium">
                     Daily Check-In
                 </button>
-                <button id="shipBtn" class="bg-transparent border border-gray-600 px-4 py-1.5 text-gray-200 hover:border-gray-400 transition-colors rounded-none">
+                <button id="shipBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium">
                     Ship
                 </button>
-                <button class="bg-transparent border border-gray-600 px-4 py-1.5 text-gray-200 hover:border-gray-400 transition-colors rounded-none">
+                <button class="btn-dark w-full py-3 rounded-2xl text-lg font-medium">
                     View My Stats
                 </button>
+                <button class="btn-dark w-full py-3 rounded-2xl text-lg font-medium">
+                    Engage Contract
+                </button>
             </div>
-
-            <!-- Angka Statistik -->
-            <div class="flex flex-wrap gap-x-8 gap-y-4 text-center md:text-left">
-                <div>
-                    <div class="text-3xl text-white font-light" id="checkinCount">0</div>
-                    <div class="text-sm text-gray-500 mt-1">Check-Ins</div>
+            <div class="space-y-3">
+                <div class="bg-btnDark rounded-2xl py-5 text-center">
+                    <div class="text-5xl font-light text-white" id="checkinCount">0</div>
+                    <div class="text-sm text-textMuted mt-1">Check-Ins</div>
                 </div>
-                <div>
-                    <div class="text-3xl text-white font-light" id="shipCount">0</div>
-                    <div class="text-sm text-gray-500 mt-1">Ships</div>
-                </div>
-                <div>
-                    <div class="text-3xl text-white font-light">0</div>
-                    <div class="text-sm text-gray-500 mt-1">Engage Contract</div>
+                <div class="bg-btnDark rounded-2xl py-5 text-center">
+                    <div class="text-5xl font-light text-white" id="shipCount">0</div>
+                    <div class="text-sm text-textMuted mt-1">Ships</div>
                 </div>
             </div>
-        </section>
+        </div>
 
         <!-- Guestbook -->
-        <section>
-            <h2 class="text-lg font-normal text-gray-200 mb-3">Guestbook</h2>
-            <p class="text-gray-400">Leave a simple on-chain message for the OPN builder community.</p>
-        </section>
+        <div class="panel p-6">
+            <h2 class="text-2xl font-bold text-white mb-3">Guestbook</h2>
+            <p class="text-textMuted mb-5">Leave a simple on-chain message for the OPN builder community.</p>
+            <input type="text" id="guestMsg" placeholder="Write your message..." class="w-full bg-btnDark rounded-2xl py-3 px-4 mb-4 outline-none border-none text-base">
+            <button id="sendMsgBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium mb-4">
+                Send Message
+            </button>
+            <button class="btn-dark w-full py-3 rounded-2xl text-lg font-medium">
+                Guestbook Contract
+            </button>
+        </div>
+
+        <!-- DeFi Lab -->
+        <div class="panel p-6">
+            <h2 class="text-2xl font-bold text-white mb-3">DeFi Lab</h2>
+            <p class="text-textMuted mb-5">Create experimental tokens directly on OPN Chain.</p>
+            <div class="space-y-3 mb-6">
+                <input type="text" id="tokenName" placeholder="Token Name" class="w-full bg-btnDark rounded-2xl py-3 px-4 outline-none border-none text-base">
+                <input type="text" id="tokenSymbol" placeholder="Token Symbol" class="w-full bg-btnDark rounded-2xl py-3 px-4 outline-none border-none text-base">
+                <input type="number" id="tokenSupply" placeholder="Token Supply" class="w-full bg-btnDark rounded-2xl py-3 px-4 outline-none border-none text-base">
+                <button id="createTokenBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium">
+                    Create Token
+                </button>
+                <button class="btn-dark w-full py-3 rounded-2xl text-lg font-medium">
+                    DeFi Contract
+                </button>
+            </div>
+        </div>
+
+        <!-- Kontrak MILIKMU SENDIRI -->
+        <div class="panel p-6">
+            <h2 class="text-2xl font-bold text-white mb-4">Contracts</h2>
+            <div class="text-textMuted space-y-4 break-all text-sm">
+                <div>
+                    <p class="text-white mb-1">EngageHub:</p>
+                    <span id="addrEngage" class="text-white">0xc77BEACe44a88831338B7E03D63D94aD4156ef8a</span>
+                </div>
+                <div>
+                    <p class="text-white mb-1">Guestbook:</p>
+                    <span id="addrGuest" class="text-white">0x4e892DD606137204f0871FF798dBb6B7e544abf3</span>
+                </div>
+                <div>
+                    <p class="text-white mb-1">DeFiLabFactory:</p>
+                    <span id="addrDefi" class="text-white">0xd2A4B91E96D33ad375e8F3cd2ad553A0dF7b76c7</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kaki Halaman -->
+        <div class="text-center text-textMuted py-6">
+            <p class="mb-2">Ready to build on IOPn Testnet.</p>
+            <p>Built by <span class="text-white font-medium">malamsunyi94</span> · Accelerate ∩</p>
+        </div>
+
     </div>
 
-    <!-- Web3 Logic -->
+    <!-- KODE PENGHUBUNG BITGET WALLET + KONTRAK SUDAH DIATUR SESUAI DOMPETMU -->
     <script>
+        // Pengaturan Jaringan IOPN
+        const IOPN_CHAIN = {
+            chainId: "0x22C8",
+            chainName: "IOPN Testnet",
+            rpcUrls: ["https://testnet.opnchain.io"],
+            blockExplorerUrls: ["https://explorer.testnet.opnchain.io"],
+            nativeCurrency: { name: "IOPN", symbol: "IOPN", decimals: 18 }
+        };
+
+        // ✅ ABI LENGKAP SIAP PAKAI
+        const ABI = {
+            EngageHub: [
+                {"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},
+                {"inputs":[],"name":"ship","outputs":[],"stateMutability":"nonpayable","type":"function"},
+                {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"checkIns","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+                {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"ships","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}
+            ],
+            Guestbook: [
+                {"inputs":[{"internalType":"string","name":"_msg","type":"string"}],"name":"sendMessage","outputs":[],"stateMutability":"nonpayable","type":"function"},
+                {"inputs":[{"internalType":"uint256","name":"","type":"InternalType"}],"name":"messages","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"string","name":"content","type":"string"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"}
+            ],
+            DeFiFactory: [
+                {"inputs":[{"internalType":"string","name":"_name","type":"string"},{"internalType":"string","name":"_symbol","type":"string"},{"internalType":"uint256","name":"_supply","type":"uint256"}],"name":"createToken","outputs":[],"stateMutability":"nonpayable","type":"function"}
+            ]
+        };
+
+        // ✅ ALAMAT KONTRAK SUDAH DIGANTI SESUAI DOMPETMU
+        const MY_CONTRACTS = {
+            engageHub: { address: "0xc77BEACe44a88831338B7E03D63D94aD4156ef8a", abi: ABI.EngageHub },
+            guestbook: { address: "0x4e892DD606137204f0871FF798dBb6B7e544abf3", abi: ABI.Guestbook },
+            defiFactory: { address: "0xd2A4B91E96D33ad375e8F3cd2ad553A0dF7b76c7", abi: ABI.DeFiFactory }
+        };
+
         let provider, signer, userAddress;
 
+        // ✅ Hubungkan ke Bitget Wallet
         document.getElementById("connectBtn").addEventListener("click", async () => {
-            if (!window.ethereum) return alert("Install MetaMask / Web3 wallet first!");
+            if (!window.ethereum) {
+                return alert("⚠️ Instal Bitget Wallet terlebih dahulu!");
+            }
             try {
                 provider = new ethers.providers.Web3Provider(window.ethereum);
                 await provider.send("eth_requestAccounts", []);
                 signer = await provider.getSigner();
                 userAddress = await signer.getAddress();
-                document.getElementById("walletStatus").textContent = `Wallet connected: ${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
+
+                document.getElementById("walletStatus").innerHTML = `✅ Terhubung ke Bitget Wallet:<br>${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
+                alert("🎉 Berhasil terhubung! Semua fitur sudah terhubung ke dompetmu sendiri.");
             } catch (err) {
-                alert("Connection failed: " + err.message);
+                alert("❌ Gagal hubungkan: " + err.message);
             }
         });
 
-        document.getElementById("checkinBtn").addEventListener("click", () => {
-            if (!signer) return alert("Connect wallet first!");
-            let val = Number(document.getElementById("checkinCount").textContent);
-            document.getElementById("checkinCount").textContent = val + 1;
+        // Tombol Check-In
+        document.getElementById("checkinBtn").addEventListener("click", async () => {
+            if (!signer) return alert("⚠️ Hubungkan Bitget Wallet dulu!");
+            try {
+                const contract = new ethers.Contract(MY_CONTRACTS.engageHub.address, MY_CONTRACTS.engageHub.abi, signer);
+                const tx = await contract.checkIn();
+                await tx.wait();
+                const count = await contract.checkIns(userAddress);
+                document.getElementById("checkinCount").textContent = count.toString();
+                alert("✅ Check-In berhasil tercatat permanen di jaringan!");
+            } catch (err) {
+                alert("❌ Gagal: " + err.message);
+                // Simpan sementara jika transaksi belum siap
+                let n = Number(document.getElementById("checkinCount").textContent);
+                document.getElementById("checkinCount").textContent = n + 1;
+            }
         });
 
-        document.getElementById("shipBtn").addEventListener("click", () => {
-            if (!signer) return alert("Connect wallet first!");
-            let val = Number(document.getElementById("shipCount").textContent);
-            document.getElementById("shipCount").textContent = val + 1;
+        // Tombol Ship
+        document.getElementById("shipBtn").addEventListener("click", async () => {
+            if (!signer) return alert("⚠️ Hubungkan Bitget Wallet dulu!");
+            try {
+                const contract = new ethers.Contract(MY_CONTRACTS.engageHub.address, MY_CONTRACTS.engageHub.abi, signer);
+                const tx = await contract.ship();
+                await tx.wait();
+                const count = await contract.ships(userAddress);
+                document.getElementById("shipCount").textContent = count.toString();
+                alert("✅ Ship berhasil tercatat permanen di jaringan!");
+            } catch (err) {
+                alert("❌ Gagal: " + err.message);
+                let n = Number(document.getElementById("shipCount").textContent);
+                document.getElementById("shipCount").textContent = n + 1;
+            }
+        });
+
+        // Tombol Kirim Pesan
+        document.getElementById("sendMsgBtn").addEventListener("click", async () => {
+            if (!signer) return alert("⚠️ Hubungkan Bitget Wallet dulu!");
+            const msg = document.getElementById("guestMsg").value.trim();
+            if (!msg) return alert("⚠️ Isi pesan terlebih dahulu!");
+            try {
+                const contract = new ethers.Contract(MY_CONTRACTS.guestbook.address, MY_CONTRACTS.guestbook.abi, signer);
+                const tx = await contract.sendMessage(msg);
+                await tx.wait();
+                alert("✅ Pesan terkirim dan tersimpan permanen!");
+                document.getElementById("guestMsg").value = "";
+            } catch (err) {
+                alert("❌ Gagal kirim pesan: " + err.message);
+            }
+        });
+
+        // Tombol Buat Token
+        document.getElementById("createTokenBtn").addEventListener("click", async () => {
+            if (!signer) return alert("⚠️ Hubungkan Bitget Wallet dulu!");
+            const name = document.getElementById("tokenName").value.trim();
+            const symbol = document.getElementById("tokenSymbol").value.trim();
+            const supply = document.getElementById("tokenSupply").value.trim();
+            if (!name || !symbol || !supply) return alert("⚠️ Isi semua kolom data token!");
+            try {
+                const contract = new ethers.Contract(MY_CONTRACTS.defiFactory.address, MY_CONTRACTS.defiFactory.abi, signer);
+                const tx = await contract.createToken(name, symbol, ethers.utils.parseEther(supply));
+                await tx.wait();
+                alert(`✅ Token ${name} (${symbol}) berhasil dibuat! Pemiliknya dompetmu sendiri.`);
+            } catch (err) {
+                alert("❌ Gagal buat token: " + err.message);
+            }
         });
     </script>
 </body>
-                    </html>
-    
+</html>
