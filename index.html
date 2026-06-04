@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOPn Builder Hub</title>
+    <title>OPNex Layer 1 Protocol | Native Decentralized Exchange</title>
+    <meta name="description" content="Fast, Secure, & Low Fee DeFi Infrastructure built on OPN Chain Layer 1 — The backbone of the Internet of People ecosystem.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -17,6 +18,7 @@
                         textBase: '#cccccc',
                         btnLight: '#e2e2e8',
                         btnDark: '#222228',
+                        primary: '#3b82f6',
                     },
                     fontFamily: {
                         mono: ['"JetBrains Mono"', 'monospace']
@@ -26,7 +28,7 @@
         }
     </script>
     <style type="text/tailwindcss">
-        html { background: #000; }
+        html { background: #000; scroll-behavior: smooth; }
         body { 
             background: #000;
             color: #cccccc; 
@@ -37,236 +39,175 @@
             background: linear-gradient(180deg, #f5f5f9 0%, #cacad2 100%);
             color: #000;
             box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
+            transition: all 0.2s ease;
+        }
+        .btn-glow:hover {
+            transform: translateY(-1px);
+            opacity: 0.95;
         }
         .btn-dark {
             background: #1e1e25;
             color: #cccccc;
             box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
+            transition: all 0.2s ease;
+        }
+        .btn-dark:hover {
+            background: #2a2a32;
         }
         .panel {
             background: #121217;
             border: 1px solid #2a2a30;
             border-radius: 24px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: border-color 0.3s ease;
+        }
+        .panel:hover {
+            border-color: #383842;
+        }
+        .feature-item {
+            border-left: 2px solid #2a2a30;
+            padding-left: 1.25rem;
+            margin-bottom: 2rem;
+            transition: border-color 0.3s ease;
+        }
+        .feature-item:hover {
+            border-left-color: #3b82f6;
         }
     </style>
 </head>
 <body class="min-h-screen p-5">
-    <div class="max-w-xl mx-auto space-y-6">
-        <div class="panel p-6">
+    <div class="max-w-3xl mx-auto space-y-8">
+        
+        <!-- Header Utama -->
+        <div class="panel p-8 text-center">
             <div class="bg-black rounded-full inline-block px-4 py-1 text-sm text-textMuted mb-6">
-                OPN Chain Builder Demo
+                OPN Chain Layer 1
             </div>
-            <h1 class="text-4xl font-bold text-white mb-3">IOPn Builder Hub <span class="text-2xl align-top">∩</span></h1>
-            <p class="text-textMuted mb-6">
-                A lightweight on-chain builder activity hub for daily participation, community interaction, and DeFi experiments on OPN Chain.
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Native Decentralized Exchange</h1>
+            <p class="text-xl text-textBase mb-6">Built on OPN Chain Layer 1</p>
+            <p class="text-textMuted max-w-2xl mx-auto mb-8">
+                Fast, Secure, & Low Fee DeFi Infrastructure — The backbone of the Internet of People ecosystem.
             </p>
-            <button id="connectBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium mb-3">
-                Connect Wallet
-            </button>
-            <div id="walletStatus" class="w-full bg-btnDark rounded-2xl py-3 px-4 text-textMuted">
-                Wallet not connected
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contracts" class="btn-glow px-8 py-3 rounded-2xl text-lg font-medium inline-block">
+                    View Contracts
+                </a>
+                <a href="#features" class="btn-dark px-8 py-3 rounded-2xl text-lg font-medium inline-block">
+                    Explore Features
+                </a>
             </div>
         </div>
-        <div class="panel p-6">
-            <h2 class="text-2xl font-bold text-white mb-3">Daily Activity</h2>
-            <p class="text-textMuted mb-5">Check in once per day and record your builder progress.</p>
-            <div class="space-y-3 mb-6">
-                <button id="checkinBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium">
-                    Daily Check-In
-                </button>
-                <button id="shipBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium">
-                    Ship
-                </button>
-                <button class="btn-dark w-full py-3 rounded-2xl text-lg font-medium">
-                    View My Stats
-                </button>
-                <button class="btn-dark w-full py-3 rounded-2xl text-lg font-medium">
-                    Engage Contract
-                </button>
+
+        <!-- Bagian Fitur Utama DeFi -->
+        <div id="features" class="panel p-8">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">🔹 FITUR UTAMA DEFI</h2>
+
+            <!-- Fitur 1 -->
+            <div class="feature-item">
+                <h3 class="text-xl font-semibold text-white mb-3">1. Pertukaran Token / Swap</h3>
+                <ul class="list-disc list-inside text-textMuted space-y-1.5">
+                    <li>Tempat menukar satu token ke token lain secara langsung</li>
+                    <li>Contoh: Ubah WPLUME ke PLUME, atau PLUME ke USDT, dst</li>
+                    <li>Tidak perlu akun, cukup sambung dompet</li>
+                    <li>Contoh: MagmaDEX, Uniswap</li>
+                </ul>
             </div>
-            <div class="space-y-3">
-                <div class="bg-btnDark rounded-2xl py-5 text-center">
-                    <div class="text-5xl font-light text-white" id="checkinCount">0</div>
-                    <div class="text-sm text-textMuted mt-1">Check-Ins</div>
-                </div>
-                <div class="bg-btnDark rounded-2xl py-5 text-center">
-                    <div class="text-5xl font-light text-white" id="shipCount">0</div>
-                    <div class="text-sm text-textMuted mt-1">Ships</div>
-                </div>
+
+            <!-- Fitur 2 -->
+            <div class="feature-item">
+                <h3 class="text-xl font-semibold text-white mb-3">2. Pinjam-Meminjamkan Aset</h3>
+                <ul class="list-disc list-inside text-textMuted space-y-1.5">
+                    <li><strong>Memberikan pinjaman:</strong> Kamu simpan token sebagai jaminan → dapat pinjaman dalam bentuk token lain</li>
+                    <li><strong>Meminjamkan:</strong> Kamu simpan token → dapat bunga secara berkala</li>
+                    <li>Bunga diatur otomatis oleh sistem sesuai penawaran dan permintaan</li>
+                    <li>Contoh: Aave, Compound</li>
+                </ul>
+            </div>
+
+            <!-- Fitur 3 -->
+            <div class="feature-item">
+                <h3 class="text-xl font-semibold text-white mb-3">3. Staking / Mengunci Token</h3>
+                <ul class="list-disc list-inside text-textMuted space-y-1.5">
+                    <li>Kamu mengunci token kamu dalam jangka waktu tertentu</li>
+                    <li>Mendapatkan imbalan berupa token tambahan sebagai gantinya</li>
+                    <li>Tujuannya juga membantu mengamankan jaringan</li>
+                    <li>Contoh: Staking PLUME untuk dapat bunga</li>
+                </ul>
+            </div>
+
+            <!-- Fitur 4 -->
+            <div class="feature-item">
+                <h3 class="text-xl font-semibold text-white mb-3">4. Penyedia Likuiditas & Hasil Pertanian (Yield Farming)</h3>
+                <ul class="list-disc list-inside text-textMuted space-y-1.5">
+                    <li>Kamu menyetor dua jenis token sekaligus ke dalam kolam likuiditas</li>
+                    <li>Mendapatkan bagian dari biaya transaksi + imbalan tambahan</li>
+                    <li>⚠️ Risiko: Ada kemungkinan selisih nilai aset yang disebut kerugian tidak tetap</li>
+                    <li>Contoh: Menyediakan likuiditas untuk pasangan PLUME/USDT</li>
+                </ul>
+            </div>
+
+            <!-- Fitur 5 -->
+            <div class="feature-item">
+                <h3 class="text-xl font-semibold text-white mb-3">5. Jembatan Lintas Jaringan / Bridge</h3>
+                <ul class="list-disc list-inside text-textMuted space-y-1.5">
+                    <li>Memindahkan token dari satu jaringan blockchain ke jaringan lain</li>
+                    <li>Contoh: Memindahkan PLUME dari Plume Network ke Ethereum atau BSC</li>
+                </ul>
+            </div>
+
+            <!-- Fitur 6 -->
+            <div class="feature-item">
+                <h3 class="text-xl font-semibold text-white mb-3">6. Asuransi Terdesentralisasi</h3>
+                <ul class="list-disc list-inside text-textMuted space-y-1.5">
+                    <li>Melindungi aset dari risiko seperti kerusakan smart contract atau penipuan</li>
+                    <li>Pengguna membayar premi kecil, dapat klaim jika terjadi masalah</li>
+                </ul>
+            </div>
+
+            <!-- Fitur 7 -->
+            <div class="feature-item">
+                <h3 class="text-xl font-semibold text-white mb-3">7. Stablecoin</h3>
+                <ul class="list-disc list-inside text-textMuted space-y-1.5">
+                    <li>Token yang nilainya dipatok ke mata uang riil seperti Dolar AS</li>
+                    <li>Contoh: USDC, USDT yang nilainya tetap stabil</li>
+                </ul>
+            </div>
+
+            <!-- Fitur 8 -->
+            <div class="feature-item">
+                <h3 class="text-xl font-semibold text-white mb-3">8. Manajemen Portofolio & Derivatif</h3>
+                <ul class="list-disc list-inside text-textMuted space-y-1.5">
+                    <li>Alat untuk mengelola aset, berinvestasi secara otomatis, atau berdagang dengan pengungkit</li>
+                </ul>
+            </div>
+
+            <!-- Ringkasan -->
+            <div class="mt-10 pt-6 border-t border-border">
+                <h3 class="text-xl font-bold text-white mb-3">✅ RINGKASAN SEDERHANA:</h3>
+                <p class="text-textMuted leading-relaxed">
+                    DeFi ibarat "bank dan pasar keuangan otomatis" yang berjalan 24 jam, tanpa kantor, tanpa verifikasi identitas yang rumit, dan aturannya tercatat jelas di kode program. Semua transaksi terbuka dan bisa dilihat siapa saja.
+                </p>
             </div>
         </div>
-                <div class="panel p-6">
-            <h2 class="text-2xl font-bold text-white mb-3">Guestbook</h2>
-            <p class="text-textMuted mb-5">Leave a simple on-chain message for the OPN builder community.</p>
-            <input type="text" id="guestMsg" placeholder="Write your message..." class="w-full bg-btnDark rounded-2xl py-3 px-4 mb-4 outline-none border-none text-base">
-            <button id="sendMsgBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium mb-4">
-                Send Message
-            </button>
-            <button class="btn-dark w-full py-3 rounded-2xl text-lg font-medium">
-                Guestbook Contract
-            </button>
-        </div>
-                <div class="panel p-6">
-            <h2 class="text-2xl font-bold text-white mb-3">DeFi Lab</h2>
-            <p class="text-textMuted mb-5">Create experimental tokens directly on OPN Chain.</p>
-            <div class="space-y-3 mb-6">
-                <input type="text" id="tokenName" placeholder="Token Name" class="w-full bg-btnDark rounded-2xl py-3 px-4 outline-none border-none text-base">
-                <input type="text" id="tokenSymbol" placeholder="Token Symbol" class="w-full bg-btnDark rounded-2xl py-3 px-4 outline-none border-none text-base">
-                <input type="number" id="tokenSupply" placeholder="Token Supply" class="w-full bg-btnDark rounded-2xl py-3 px-4 outline-none border-none text-base">
-                <button id="createTokenBtn" class="btn-glow w-full py-3 rounded-2xl text-lg font-medium">
-                    Create Token
-                </button>
-                <button class="btn-dark w-full py-3 rounded-2xl text-lg font-medium">
-                    DeFi Contract
-                </button>
+
+        <!-- Bagian Kontrak -->
+        <div id="contracts" class="panel p-8">
+            <h2 class="text-2xl font-bold text-white mb-4">Kontrak Resmi</h2>
+            <p class="text-textMuted mb-6">Alamat kontrak protokol yang terverifikasi di jaringan OPN Chain:</p>
+            <div class="bg-btnDark p-4 rounded-xl font-mono text-sm text-textBase break-all">
+                <p class="mb-2"><span class="text-primary">Router:</span> 0x...</p>
+                <p><span class="text-primary">Factory:</span> 0x...</p>
             </div>
         </div>
-        <div class="panel p-6">
-            <h2 class="text-2xl font-bold text-white mb-4">Contracts</h2>
-            <div class="text-textMuted space-y-4 break-all text-sm">
-                <div>
-                    <p class="text-white mb-1">EngageHub:</p>
-                    <span id="addrEngage" class="text-white">0xc77BEACe44a88831338B7E03D63D94aD4156ef8a</span>
-                </div>
-                <div>
-                    <p class="text-white mb-1">Guestbook:</p>
-                    <span id="addrGuest" class="text-white">0x4e892DD606137204f0871FF798dBb6B7e544abf3</span>
-                </div>
-                <div>
-                    <p class="text-white mb-1">DeFiLabFactory:</p>
-                    <span id="addrDefi" class="text-white">0xd2A4B91E96D33ad375e8F3cd2ad553A0dF7b76c</span>
-                </div>
-            </div>
+
+        <!-- Footer -->
+        <div class="text-center text-textMuted py-4">
+            <p class="mb-1">Dibangun untuk ekosistem Internet of People</p>
+            <p class="text-sm">Dikembangkan oleh <span class="text-white">SNA1707 | Naum14 | IOPN</span></p>
+            <p class="text-xs mt-2">© 2026 OPNex Layer 1 Protocol</p>
         </div>
-        <div class="text-center text-textMuted py-6">
-            <p class="mb-2">Ready to build on IOPn Testnet.</p>
-            <p>Built by <span class="text-white font-medium">sandrasinya</span> · Accelerate ∩</p>
-        </div>
+
     </div>
-    <script src="https://cdn.ethers.io/lib/ethers-5.7.umd.min.js"></script>
-    <script>
-        window.addEventListener('load', async () => {
-            if (!window.ethers) {
-                document.getElementById("walletStatus").innerHTML = "Library failed to load, please open inside Bitget Wallet";
-                return;
-            }
-            const IOPN_CHAIN = {
-                chainId: "0x22C8",
-                chainName: "IOPN Testnet",
-                rpcUrls: ["https://testnet.opnchain.io"],
-                blockExplorerUrls: ["https://explorer.testnet.opnchain.io"],
-                nativeCurrency: { name: "IOPN", symbol: "IOPN", decimals: 18 }
-            };
-            const FULL_ABI = {
-                EngageHub: [
-                    {"inputs":[],"name":"checkIn","outputs":[],"stateMutability":"nonpayable","type":"function"},
-                    {"inputs":[],"name":"ship","outputs":[],"stateMutability":"nonpayable","type":"function"},
-                    {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"checkIns","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-                    {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"ships","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"}
-                ],
-                Guestbook: [
-                    {"inputs":[{"internalType":"string","name":"_message","type":"string"}],"name":"sendMessage","outputs":[],"stateMutability":"nonpayable","type":"function"},
-                    {"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"messages","outputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"string","name":"content","type":"string"},{"internalType":"uint256","name":"timestamp","type":"uint256"}],"stateMutability":"view","type":"function"}
-                ],
-                DeFiLabFactory: [
-                    {"inputs":[{"internalType":"string","name":"_name","type":"string"},{"internalType":"string","name":"_symbol","type":"string"},{"internalType":"uint256","name":"_supply","type":"uint256"}],"name":"createToken","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"nonpayable","type":"function"}
-                ]
-            };
-            const MY_CONTRACTS = {
-                engageHub: { address: "0xc77BEACe44a88831338B7E03D63D94aD4156ef8a", abi: FULL_ABI.EngageHub },
-                guestbook: { address: "0x4e892DD606137204f0871FF798dBb6B7e544abf3", abi: FULL_ABI.Guestbook },
-                defiFactory: { address: "0xd2A4B91E96D33ad375e8F3cd2ad553A0dF7b76c", abi: FULL_ABI.DeFiLabFactory }
-            };
-            let provider, signer, userAddress;
-            let engageContract, guestContract, defiContract;
-                   document.getElementById("connectBtn").addEventListener("click", async () => {
-                if (!window.ethereum) {
-                    alert("Please open this site inside Bitget Wallet DApp browser");
-                    return;
-                }
-                try {
-                    provider = new ethers.providers.Web3Provider(window.ethereum);
-                    await provider.send("eth_requestAccounts", []);
-                    signer = await provider.getSigner();
-                    userAddress = await signer.getAddress();
-                    engageContract = new ethers.Contract(MY_CONTRACTS.engageHub.address, MY_CONTRACTS.engageHub.abi, signer);
-                    guestContract = new ethers.Contract(MY_CONTRACTS.guestbook.address, MY_CONTRACTS.guestbook.abi, signer);
-                    defiContract = new ethers.Contract(MY_CONTRACTS.defiFactory.address, MY_CONTRACTS.defiFactory.abi, signer);
-                    document.getElementById("walletStatus").innerHTML = `Connected:<br>${userAddress.slice(0,6)}...${userAddress.slice(-4)}`;
-                    const checkInNum = await engageContract.checkIns(userAddress);
-                    const shipNum = await engageContract.ships(userAddress);
-                    document.getElementById("checkinCount").textContent = checkInNum.toString();
-                    document.getElementById("shipCount").textContent = shipNum.toString();
-                    alert("Successfully connected to Bitget Wallet");
-                } catch (err) {
-                    alert("Failed to connect: " + err.message);
-                }
-            });
-                    document.getElementById("checkinBtn").addEventListener("click", async () => {
-                if (!signer || !engageContract) { alert("Please connect your wallet first"); return; }
-                try {
-                    const tx = await engageContract.checkIn();
-                    alert("Processing transaction...");
-                    await tx.wait();
-                    const newCount = await engageContract.checkIns(userAddress);
-                    document.getElementById("checkinCount").textContent = newCount.toString();
-                    alert("Check-In successful");
-                } catch (err) {
-                    alert("Failed: " + err.message);
-                }
-            });
-
-            document.getElementById("shipBtn").addEventListener("click", async () => {
-                if (!signer || !engageContract) { alert("Please connect your wallet first"); return; }
-                try {
-                    const tx = await engageContract.ship();
-                    alert("Processing transaction...");
-                    await tx.wait();
-                    const newCount = await engageContract.ships(userAddress);
-                    document.getElementById("shipCount").textContent = newCount.toString();
-                    alert("Ship successful");
-                } catch (err) {
-                    alert("Failed: " + err.message);
-                }
-            });
-             document.getElementById("sendMsgBtn").addEventListener("click", async () => {
-                if (!signer || !guestContract) { alert("Please connect your wallet first"); return; }
-                const msg = document.getElementById("guestMsg").value.trim();
-                if (!msg) { alert("Please enter your message"); return; }
-                try {
-                    const tx = await guestContract.sendMessage(msg);
-                    alert("Sending message...");
-                    await tx.wait();
-                    alert("Message sent successfully");
-                    document.getElementById("guestMsg").value = "";
-                } catch (err) {
-                    alert("Failed to send: " + err.message);
-                }
-            });
-
-            document.getElementById("createTokenBtn").addEventListener("click", async () => {
-                if (!signer || !defiContract) { alert("Please connect your wallet first"); return; }
-                const name = document.getElementById("tokenName").value.trim();
-                const symbol = document.getElementById("tokenSymbol").value.trim();
-                const supply = document.getElementById("tokenSupply").value.trim();
-                if (!name || !symbol || !supply) { alert("Please fill all fields"); return; }
-                try {
-                    const tx = await defiContract.createToken(name, symbol, ethers.utils.parseEther(supply));
-                    alert("Creating token...");
-                    await tx.wait();
-                    alert(`Token ${name} (${symbol}) created successfully`);
-                    document.getElementById("tokenName").value = "";
-                    document.getElementById("tokenSymbol").value = "";
-                    document.getElementById("tokenSupply").value = "";
-                } catch (err) {
-                    alert("Failed to create token: " + err.message);
-                }
-            });
-        });
-    </script>
 </body>
-</html>
-
-
-
+                </html>
+    
