@@ -1,213 +1,336 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPNex Layer 1 Protocol | Native Decentralized Exchange</title>
-    <meta name="description" content="Fast, Secure, & Low Fee DeFi Infrastructure built on OPN Chain Layer 1 — The backbone of the Internet of People ecosystem.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        bgMain: '#000000',
-                        panel: '#121217',
-                        border: '#222228',
-                        textMuted: '#999999',
-                        textBase: '#cccccc',
-                        btnLight: '#e2e2e8',
-                        btnDark: '#222228',
-                        primary: '#3b82f6',
-                    },
-                    fontFamily: {
-                        mono: ['"JetBrains Mono"', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        html { background: #000; scroll-behavior: smooth; }
-        body { 
-            background: #000;
-            color: #cccccc; 
-            font-family: "JetBrains Mono", monospace; 
-            line-height: 1.7;
-        }
-        .btn-glow {
-            background: linear-gradient(180deg, #f5f5f9 0%, #cacad2 100%);
-            color: #000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.7);
-            transition: all 0.2s ease;
-        }
-        .btn-glow:hover {
-            transform: translateY(-1px);
-            opacity: 0.95;
-        }
-        .btn-dark {
-            background: #1e1e25;
-            color: #cccccc;
-            box-shadow: inset 0 1px 2px rgba(0,0,0,0.6);
-            transition: all 0.2s ease;
-        }
-        .btn-dark:hover {
-            background: #2a2a32;
-        }
-        .panel {
-            background: #121217;
-            border: 1px solid #2a2a30;
-            border-radius: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            transition: border-color 0.3s ease;
-        }
-        .panel:hover {
-            border-color: #383842;
-        }
-        .feature-item {
-            border-left: 2px solid #2a2a30;
-            padding-left: 1.25rem;
-            margin-bottom: 2rem;
-            transition: border-color 0.3s ease;
-        }
-        .feature-item:hover {
-            border-left-color: #3b82f6;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IOPN DeFi Hub</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#050816;
+color:white;
+}
+
+header{
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#0d1328;
+border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.logo{
+font-size:24px;
+font-weight:700;
+color:#4ade80;
+}
+
+.connect-btn{
+padding:12px 24px;
+border:none;
+border-radius:10px;
+background:#4ade80;
+font-weight:600;
+cursor:pointer;
+}
+
+.hero{
+padding:80px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:52px;
+margin-bottom:20px;
+}
+
+.hero p{
+opacity:.8;
+max-width:800px;
+margin:auto;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:25px;
+padding:40px;
+}
+
+.card{
+background:#0f172a;
+border:1px solid rgba(255,255,255,.08);
+border-radius:20px;
+padding:25px;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+border-color:#4ade80;
+}
+
+.card h2{
+margin-bottom:15px;
+color:#4ade80;
+}
+
+.input{
+width:100%;
+padding:12px;
+margin-bottom:10px;
+border:none;
+border-radius:10px;
+background:#1e293b;
+color:white;
+}
+
+.action-btn{
+width:100%;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#4ade80;
+font-weight:600;
+cursor:pointer;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+padding:40px;
+}
+
+.stat-box{
+background:#0f172a;
+padding:20px;
+border-radius:16px;
+text-align:center;
+}
+
+footer{
+text-align:center;
+padding:40px;
+opacity:.6;
+}
+
+</style>
 </head>
-<body class="min-h-screen p-5">
-    <div class="max-w-3xl mx-auto space-y-8">
-        
-        <!-- Header Utama -->
-        <div class="panel p-8 text-center">
-            <div class="bg-black rounded-full inline-block px-4 py-1 text-sm text-textMuted mb-6">
-                OPN Chain Layer 1
-            </div>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Native Decentralized Exchange</h1>
-            <p class="text-xl text-textBase mb-6">Built on OPN Chain Layer 1</p>
-            <p class="text-textMuted max-w-2xl mx-auto mb-8">
-                Fast, Secure, & Low Fee DeFi Infrastructure — The backbone of the Internet of People ecosystem.
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#contracts" class="btn-glow px-8 py-3 rounded-2xl text-lg font-medium inline-block">
-                    View Contracts
-                </a>
-                <a href="#features" class="btn-dark px-8 py-3 rounded-2xl text-lg font-medium inline-block">
-                    Explore Features
-                </a>
-            </div>
-        </div>
 
-        <!-- Bagian Fitur Utama DeFi -->
-        <div id="features" class="panel p-8">
-            <h2 class="text-3xl font-bold text-white mb-8 text-center">🔹 FITUR UTAMA DEFI</h2>
+<body>
 
-            <!-- Fitur 1 -->
-            <div class="feature-item">
-                <h3 class="text-xl font-semibold text-white mb-3">1. Pertukaran Token / Swap</h3>
-                <ul class="list-disc list-inside text-textMuted space-y-1.5">
-                    <li>Tempat menukar satu token ke token lain secara langsung</li>
-                    <li>Contoh: Ubah WPLUME ke PLUME, atau PLUME ke USDT, dst</li>
-                    <li>Tidak perlu akun, cukup sambung dompet</li>
-                    <li>Contoh: MagmaDEX, Uniswap</li>
-                </ul>
-            </div>
+<header>
+<div class="logo">IOPN DeFi Hub</div>
+<button class="connect-btn" onclick="connectWallet()">
+Connect Wallet
+</button>
+</header>
 
-            <!-- Fitur 2 -->
-            <div class="feature-item">
-                <h3 class="text-xl font-semibold text-white mb-3">2. Pinjam-Meminjamkan Aset</h3>
-                <ul class="list-disc list-inside text-textMuted space-y-1.5">
-                    <li><strong>Memberikan pinjaman:</strong> Kamu simpan token sebagai jaminan → dapat pinjaman dalam bentuk token lain</li>
-                    <li><strong>Meminjamkan:</strong> Kamu simpan token → dapat bunga secara berkala</li>
-                    <li>Bunga diatur otomatis oleh sistem sesuai penawaran dan permintaan</li>
-                    <li>Contoh: Aave, Compound</li>
-                </ul>
-            </div>
+<section class="hero">
+<h1>All-In-One DeFi Platform</h1>
+<p>
+Swap, Lending, Staking, Yield Farming, Bridge, Insurance,
+Stablecoin Management, dan Portfolio Analytics dalam satu dashboard.
+</p>
+</section>
 
-            <!-- Fitur 3 -->
-            <div class="feature-item">
-                <h3 class="text-xl font-semibold text-white mb-3">3. Staking / Mengunci Token</h3>
-                <ul class="list-disc list-inside text-textMuted space-y-1.5">
-                    <li>Kamu mengunci token kamu dalam jangka waktu tertentu</li>
-                    <li>Mendapatkan imbalan berupa token tambahan sebagai gantinya</li>
-                    <li>Tujuannya juga membantu mengamankan jaringan</li>
-                    <li>Contoh: Staking PLUME untuk dapat bunga</li>
-                </ul>
-            </div>
+<section class="stats">
 
-            <!-- Fitur 4 -->
-            <div class="feature-item">
-                <h3 class="text-xl font-semibold text-white mb-3">4. Penyedia Likuiditas & Hasil Pertanian (Yield Farming)</h3>
-                <ul class="list-disc list-inside text-textMuted space-y-1.5">
-                    <li>Kamu menyetor dua jenis token sekaligus ke dalam kolam likuiditas</li>
-                    <li>Mendapatkan bagian dari biaya transaksi + imbalan tambahan</li>
-                    <li>⚠️ Risiko: Ada kemungkinan selisih nilai aset yang disebut kerugian tidak tetap</li>
-                    <li>Contoh: Menyediakan likuiditas untuk pasangan PLUME/USDT</li>
-                </ul>
-            </div>
+<div class="stat-box">
+<h3>Total TVL</h3>
+<h2>$12.5M</h2>
+</div>
 
-            <!-- Fitur 5 -->
-            <div class="feature-item">
-                <h3 class="text-xl font-semibold text-white mb-3">5. Jembatan Lintas Jaringan / Bridge</h3>
-                <ul class="list-disc list-inside text-textMuted space-y-1.5">
-                    <li>Memindahkan token dari satu jaringan blockchain ke jaringan lain</li>
-                    <li>Contoh: Memindahkan PLUME dari Plume Network ke Ethereum atau BSC</li>
-                </ul>
-            </div>
+<div class="stat-box">
+<h3>Stakers</h3>
+<h2>18,000+</h2>
+</div>
 
-            <!-- Fitur 6 -->
-            <div class="feature-item">
-                <h3 class="text-xl font-semibold text-white mb-3">6. Asuransi Terdesentralisasi</h3>
-                <ul class="list-disc list-inside text-textMuted space-y-1.5">
-                    <li>Melindungi aset dari risiko seperti kerusakan smart contract atau penipuan</li>
-                    <li>Pengguna membayar premi kecil, dapat klaim jika terjadi masalah</li>
-                </ul>
-            </div>
+<div class="stat-box">
+<h3>Liquidity Pools</h3>
+<h2>120+</h2>
+</div>
 
-            <!-- Fitur 7 -->
-            <div class="feature-item">
-                <h3 class="text-xl font-semibold text-white mb-3">7. Stablecoin</h3>
-                <ul class="list-disc list-inside text-textMuted space-y-1.5">
-                    <li>Token yang nilainya dipatok ke mata uang riil seperti Dolar AS</li>
-                    <li>Contoh: USDC, USDT yang nilainya tetap stabil</li>
-                </ul>
-            </div>
+<div class="stat-box">
+<h3>Supported Chains</h3>
+<h2>12</h2>
+</div>
 
-            <!-- Fitur 8 -->
-            <div class="feature-item">
-                <h3 class="text-xl font-semibold text-white mb-3">8. Manajemen Portofolio & Derivatif</h3>
-                <ul class="list-disc list-inside text-textMuted space-y-1.5">
-                    <li>Alat untuk mengelola aset, berinvestasi secara otomatis, atau berdagang dengan pengungkit</li>
-                </ul>
-            </div>
+</section>
 
-            <!-- Ringkasan -->
-            <div class="mt-10 pt-6 border-t border-border">
-                <h3 class="text-xl font-bold text-white mb-3">✅ RINGKASAN SEDERHANA:</h3>
-                <p class="text-textMuted leading-relaxed">
-                    DeFi ibarat "bank dan pasar keuangan otomatis" yang berjalan 24 jam, tanpa kantor, tanpa verifikasi identitas yang rumit, dan aturannya tercatat jelas di kode program. Semua transaksi terbuka dan bisa dilihat siapa saja.
-                </p>
-            </div>
-        </div>
+<div class="grid">
 
-        <!-- Bagian Kontrak -->
-        <div id="contracts" class="panel p-8">
-            <h2 class="text-2xl font-bold text-white mb-4">Kontrak Resmi</h2>
-            <p class="text-textMuted mb-6">Alamat kontrak protokol yang terverifikasi di jaringan OPN Chain:</p>
-            <div class="bg-btnDark p-4 rounded-xl font-mono text-sm text-textBase break-all">
-                <p class="mb-2"><span class="text-primary">Router:</span> 0x...</p>
-                <p><span class="text-primary">Factory:</span> 0x...</p>
-            </div>
-        </div>
+<!-- SWAP -->
 
-        <!-- Footer -->
-        <div class="text-center text-textMuted py-4">
-            <p class="mb-1">Dibangun untuk ekosistem Internet of People</p>
-            <p class="text-sm">Dikembangkan oleh <span class="text-white">SNA1707 | Naum14 | IOPN</span></p>
-            <p class="text-xs mt-2">© 2026 OPNex Layer 1 Protocol</p>
-        </div>
+<div class="card">
+<h2>🔄 Token Swap</h2>
 
-    </div>
+<input class="input" placeholder="From Token">
+<input class="input" placeholder="Amount">
+<input class="input" placeholder="To Token">
+
+<button class="action-btn">
+Swap Token
+</button>
+</div>
+
+<!-- LENDING -->
+
+<div class="card">
+<h2>🏦 Lending & Borrowing</h2>
+
+<p>Simpan aset untuk mendapatkan bunga atau gunakan sebagai jaminan pinjaman.</p>
+
+<br>
+
+<button class="action-btn">
+Open Lending
+</button>
+</div>
+
+<!-- STAKING -->
+
+<div class="card">
+<h2>🔒 Staking</h2>
+
+<input class="input" placeholder="Jumlah PLUME">
+
+<button class="action-btn">
+Stake Now
+</button>
+</div>
+
+<!-- YIELD FARMING -->
+
+<div class="card">
+<h2>🌾 Yield Farming</h2>
+
+<p>Tambah likuiditas PLUME / USDT dan dapatkan reward.</p>
+
+<br>
+
+<button class="action-btn">
+Add Liquidity
+</button>
+</div>
+
+<!-- BRIDGE -->
+
+<div class="card">
+<h2>🌉 Cross Chain Bridge</h2>
+
+<select class="input">
+<option>Plume Network</option>
+<option>Ethereum</option>
+<option>BSC</option>
+<option>Polygon</option>
+</select>
+
+<select class="input">
+<option>Ethereum</option>
+<option>BSC</option>
+<option>Polygon</option>
+</select>
+
+<button class="action-btn">
+Bridge Asset
+</button>
+</div>
+
+<!-- INSURANCE -->
+
+<div class="card">
+<h2>🛡 DeFi Insurance</h2>
+
+<p>Perlindungan aset terhadap risiko smart contract.</p>
+
+<br>
+
+<button class="action-btn">
+Buy Coverage
+</button>
+</div>
+
+<!-- STABLECOIN -->
+
+<div class="card">
+<h2>💵 Stablecoin Vault</h2>
+
+<p>Kelola USDT, USDC dan aset stabil lainnya.</p>
+
+<br>
+
+<button class="action-btn">
+Manage Vault
+</button>
+</div>
+
+<!-- PORTFOLIO -->
+
+<div class="card">
+<h2>📊 Portfolio Dashboard</h2>
+
+<p>
+Pantau nilai aset, profit/loss,
+staking reward dan farming reward.
+</p>
+
+<br>
+
+<button class="action-btn">
+Open Dashboard
+</button>
+</div>
+
+</div>
+
+<footer>
+© 2026 IOPN DeFi Hub | Powered by Plume Network
+</footer>
+
+<script>
+
+async function connectWallet(){
+
+if(window.ethereum){
+
+try{
+
+const accounts =
+await window.ethereum.request({
+method:'eth_requestAccounts'
+});
+
+alert("Connected: " + accounts[0]);
+
+}catch(err){
+
+alert("Connection Failed");
+
+}
+
+}else{
+
+alert("Install MetaMask");
+
+}
+
+}
+
+</script>
+
 </body>
-                </html>
-    
+</html>
