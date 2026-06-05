@@ -24,3 +24,23 @@ async function connectWallet() {
  }
 
 }
+async function switchNetwork() {
+
+ try {
+
+   await ethereum.request({
+     method:
+     "wallet_switchEthereumChain",
+
+     params: [{
+       chainId:"0x22C8"
+     }]
+   });
+
+ } catch(err) {
+
+   console.log(err);
+
+ }
+
+}
